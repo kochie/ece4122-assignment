@@ -1,0 +1,708 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment Solution}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Assignment 01}\label{assignment-01}
+
+Robert Koch - 25124390
+
+    \subsection{Question 01}\label{question-01}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{import} \PY{n+nn}{cmath}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Markdown}
+         
+         \PY{n}{freq} \PY{o}{=} \PY{l+m+mi}{25124390} \PY{c+c1}{\PYZsh{} Hz}
+         \PY{n}{A} \PY{o}{=} \PY{l+m+mf}{25.0}
+         
+         \PY{n}{mu\PYZus{}0} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)} \PY{c+c1}{\PYZsh{} Vaccum permeability}
+         \PY{n}{eps\PYZus{}0} \PY{o}{=} \PY{l+m+mf}{8.854}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{12}\PY{p}{)} \PY{c+c1}{\PYZsh{} Vacuum permittivity}
+         
+         \PY{n}{omega} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{freq}
+         
+         \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mu\PYZus{}0}\PY{o}{*}\PY{n}{eps\PYZus{}0}\PY{p}{)} \PY{c+c1}{\PYZsh{} Speed of Light in a Vacuum}
+         
+         \PY{n}{eps\PYZus{}ground} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{mu\PYZus{}ground} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{n}{eps\PYZus{}air} \PY{o}{=} \PY{l+m+mf}{1.000589}
+         \PY{n}{mu\PYZus{}air} \PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \subsubsection{Brewster Angle}\label{brewster-angle}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{n1} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{eps\PYZus{}air}\PY{o}{*}\PY{n}{mu\PYZus{}air}\PY{p}{)}
+        \PY{n}{n2}  \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{eps\PYZus{}ground}\PY{o}{*}\PY{n}{mu\PYZus{}ground}\PY{p}{)}
+        \PY{n}{theta\PYZus{}b} \PY{o}{=} \PY{n}{atan}\PY{p}{(}\PY{n}{n2}\PY{o}{/}\PY{n}{n1}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The brewster angle is }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ degrees}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{degrees}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The brewster angle is 77.392025 degrees
+
+    \end{Verbatim}
+
+    \subsubsection{Phase Constant}\label{phase-constant}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{B\PYZus{}air} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{freq}\PY{o}{/}\PY{n}{c}
+        
+        \PY{n}{v\PYZus{}ground} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{eps\PYZus{}ground}\PY{o}{*}\PY{n}{eps\PYZus{}0}\PY{o}{*}\PY{n}{mu\PYZus{}ground}\PY{o}{*}\PY{n}{mu\PYZus{}0}\PY{p}{)}
+        \PY{n}{B\PYZus{}ground} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{pi}\PY{o}{*}\PY{n}{freq}\PY{o}{/}\PY{n}{v\PYZus{}ground}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase constant for air: }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ rad/s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{B\PYZus{}air}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase constant for ground: }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ rad/s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{B\PYZus{}ground}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Phase constant for air: 0.526563
+Phase constant for ground: 2.354860
+
+    \end{Verbatim}
+
+    \subsubsection{Intrinsic Wave
+Impedances}\label{intrinsic-wave-impedances}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{eta1} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{mu\PYZus{}0}\PY{o}{*}\PY{n}{mu\PYZus{}air}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{eps\PYZus{}0}\PY{o}{*}\PY{n}{eps\PYZus{}air}\PY{p}{)}\PY{p}{)}
+        \PY{n}{eta2} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{mu\PYZus{}0}\PY{o}{*}\PY{n}{mu\PYZus{}ground}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{eps\PYZus{}0}\PY{o}{*}\PY{n}{eps\PYZus{}ground}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intrinsic wave impedance for air: }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ ohms}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{eta1}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intrinsic wave impedances for ground: }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ ohms}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{eta2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Intrinsic wave impedance for air: 376.623410
+Intrinsic wave impedances for ground: 84.240352
+
+    \end{Verbatim}
+
+    \subsubsection{Angle of Transmission}\label{angle-of-transmission}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{sin\PYZus{}t} \PY{o}{=} \PY{n}{n1}\PY{o}{/}\PY{n}{n2}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}
+        \PY{n}{theta\PYZus{}t} \PY{o}{=} \PY{n}{asin}\PY{p}{(}\PY{n}{sin\PYZus{}t}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The transmission angle is }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{ degrees}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{degrees}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The transmission angle is 12.607975 degrees
+
+    \end{Verbatim}
+
+    \subsubsection{TE Polarised Reflection
+Coefficient}\label{te-polarised-reflection-coefficient}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{Gamma\PYZus{}te} \PY{o}{=} \PY{p}{(}\PY{n}{eta2}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{eta1}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{eta2}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{+}\PY{n}{eta1}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{)}
+        \PY{n}{tau\PYZus{}te} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{Gamma\PYZus{}te}\PY{p}{;}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The Polarised TE Reflection Coefficient is }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Gamma\PYZus{}te}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Polarised TE Reflection Coefficient is -0.904708
+
+    \end{Verbatim}
+
+    \subsubsection{TE Polarised Electric
+Fields}\label{te-polarised-electric-fields}
+
+    \paragraph{Incident}\label{incident}
+
+    \[\vec{E^i_s}(x,z) = E^i_0\cdot\exp(-jB_1\sin(\theta_i){x})\cdot\exp(-jB_1\cos(\theta_i)z)V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{E\PYZus{}i\PYZus{}0} \PY{o}{=} \PY{n}{A}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3\PYZcb{}}\PY{l+s+s2}{z)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{E\PYZus{}i\PYZus{}0}\PY{p}{,}
+                     \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,}
+                     \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}
+                    \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}214}]:}
+    
+    \[\vec{E^i_s}(x,z) = 25\hat{a_y}\exp(-0.514jx)\cdot\exp(-0.115jz)V/m\]
+\[\vec{E^i_s}(x,z,t) = 25\hat{a_y}\cos(157861198t-0.514x-0.115z)V/m\]
+
+    
+
+    \paragraph{Reflected}\label{reflected}
+
+    \[\vec{E^i_s}(x,z) = E^i_0\cdot\exp(-jB_1\sin(\theta_r){x})\cdot\exp(jB_1\cos(\theta_r)z)V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{E\PYZus{}r\PYZus{}0} \PY{o}{=} \PY{n}{A}\PY{o}{*}\PY{n}{Gamma\PYZus{}te}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3f\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3f\PYZcb{}}\PY{l+s+s2}{z)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{E\PYZus{}r\PYZus{}0}\PY{p}{,}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}213}]:}
+    
+    \[\vec{E^r_s}(x,z) = -22.618\hat{a_y}\exp(-0.514jx)\cdot\exp(0.115jz)V/m\]
+\[\vec{E^r_s}(x,z,t) = -22.618\hat{a_y}\cos(157861198t-0.514x+0.115z)V/m\]
+
+    
+
+    \paragraph{Transmitted}\label{transmitted}
+
+    \[\vec{E^t_s}(x,z) = E^t_0\cdot\exp(-jB_2\sin(\theta_t){x})\cdot\exp(jB_2\cos(\theta_t)z)V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{E\PYZus{}t\PYZus{}0} \PY{o}{=} \PY{n}{A}\PY{o}{*}\PY{n}{tau\PYZus{}te}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3f\PYZcb{}}\PY{l+s+s2}{jz)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3f\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3f\PYZcb{}}\PY{l+s+s2}{z)V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{E\PYZus{}t\PYZus{}0}\PY{p}{,} 
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}221}]:}
+    
+    \[\vec{E^t_s}(x,z) = 2.382\hat{a_y}\cdot\exp(-0.514jx)\cdot\exp(-2.298jz)V/m\]
+\[\vec{E^t_s}(x,z,t) = 2.382\hat{a_y}\cdot\cos(157861198t-0.514x-2.298z)V/m\]
+
+    
+
+    \subsubsection{TM Polarised Reflection
+Coefficient}\label{tm-polarised-reflection-coefficient}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n}{Gamma\PYZus{}tm} \PY{o}{=} \PY{p}{(}\PY{n}{eta2}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{eta1}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{eta2}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{+}\PY{n}{eta1}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0}
+          \PY{n}{tau\PYZus{}tm} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{Gamma\PYZus{}tm}\PY{p}{)}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{/}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{;}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The Polarised TM Reflection Coefficient is }\PY{l+s+si}{\PYZob{}:f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Gamma\PYZus{}tm}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Polarised TM Reflection Coefficient is 0.000000
+
+    \end{Verbatim}
+
+    \subsubsection{TM Polarized Electric
+Fields}\label{tm-polarized-electric-fields}
+
+    \paragraph{Incident}\label{incident}
+
+    \[\vec{E^i_s}(x,z) = E^i_0\cdot\exp(-jB_1\sin(\theta_i){x})\cdot\exp(-jB_1\cos(\theta_i)z)(\cos(\theta_i)\hat{{a_x}}-\sin(\theta_i)\hat{{a_z}})V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{E\PYZus{}i\PYZus{}0} \PY{o}{=} \PY{n}{A}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3f\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:.3\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+.3\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{})V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+0.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}i\PYZus{}0}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}i\PYZus{}0}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}205}]:}
+    
+    \[\vec{E^i_s}(x,z) = \exp(-0.514jx)\cdot
+    \exp(-0.115jz)(5.46\hat{a_x}-24.4\hat{a_z})V/m\]
+\[\vec{E^i_s}(x,z,t) = \cdot
+    \cos(157861198t-0.514x-0.115z)(5.457\hat{a_x}-24.397\hat{a_z}) V/m\]
+
+    
+
+    \paragraph{Reflected}\label{reflected}
+
+    \[\vec{E^i_s}(x,z) = E^i_0\cdot\exp(-jB_1\sin(\theta_r){x})\cdot\exp(-jB_1\cos(\theta_r)z)(\cos(\theta_r)\hat{{a_x}}+\sin(\theta_r)\hat{{a_z}})V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{E\PYZus{}r\PYZus{}0} \PY{o}{=} \PY{n}{A}\PY{o}{*}\PY{n}{Gamma\PYZus{}tm}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}+}\PY{l+s+si}{\PYZob{}a\PYZus{}z:.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{})V/m=0V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.4\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.4\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}+}\PY{l+s+si}{\PYZob{}a\PYZus{}z:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}r\PYZus{}0}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}r\PYZus{}0}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}217}]:}
+    
+    \[\vec{E^r_s}(x,z) = \exp(-0.514jx)\cdot\exp(0.115jz)(0.000\hat{a_x}+0.000\hat{a_z})V/m=0V/m\]
+\[\vec{E^r_s}(x,z,t) = \cos(157861198t-0.5139x+0.1149z)(0.0\hat{a_x}+0.0\hat{a_z}) V/m\]
+
+    
+
+    \paragraph{Transmitted}\label{transmitted}
+
+    \[\vec{E^i_s}(x,z) = E^i_0\cdot\exp(-jB_2\sin(\theta_r){x})\cdot\exp(-jB_2\cos(\theta_r)z)(\cos(\theta_r)\hat{{a_x}}-\cos(\theta_r)\hat{{a_z}})V/m\]
+\[\vec{E^i_s}(x,z,t) = \Re\{\vec{E^i_s}\exp(jwt)\}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{E\PYZus{}t\PYZus{}0} \PY{o}{=} \PY{n}{A}\PY{o}{*}\PY{n}{tau\PYZus{}tm}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.4\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.4\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3f\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3f\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}t\PYZus{}0}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}t\PYZus{}0}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}220}]:}
+    
+    \[\vec{E^t_s}(x,z) = \exp(-0.514jx)\cdot\exp(-2.298jz)(5.5\hat{a_x}-1.2\hat{a_z}) V/m\]
+\[\vec{E^t_s}(x,z,t) = \cos(157861198t-0.514x-2.298z)(5.5\hat{a_x}-1.2\hat{a_z}) V/m\]
+
+    
+
+    \subsubsection{Randomly Polarized Electric Fields (Uniform Plane
+Waves)}\label{randomly-polarized-electric-fields-uniform-plane-waves}
+
+    \paragraph{Incident}\label{incident}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{E\PYZus{}i\PYZus{}0} \PY{o}{=} \PY{n}{A}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3f\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:.3\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+.3\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:+.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{})V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}i\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:+.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}i\PYZus{}0}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}i\PYZus{}0}\PY{p}{,}
+              \PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{E\PYZus{}i\PYZus{}0}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}222}]:}
+    
+    \[\vec{E^i_s}(x,z) = \exp(-0.514jx)\cdot\exp(-0.115jz)(5.46\hat{a_x}-24.4\hat{a_z}+25.000\hat{a_y})V/m\]
+\[\vec{E^i_s}(x,z,t) = \cos(157861198t-0.514x-0.115z)(5.457\hat{a_x}-24.397\hat{a_z}+25.000\hat{a_y}) V/m\]
+
+    
+
+    \paragraph{Reflected}\label{reflected}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.3\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.3\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}+}\PY{l+s+si}{\PYZob{}a\PYZus{}z:.3f\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{})V/m=0V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}r\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.4\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.4\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}+}\PY{l+s+si}{\PYZob{}a\PYZus{}z:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{n}{B\PYZus{}air}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{A}\PY{o}{*}\PY{n}{Gamma\PYZus{}tm}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}b}\PY{p}{)}\PY{o}{*}\PY{n}{A}\PY{o}{*}\PY{n}{Gamma\PYZus{}tm}\PY{p}{,}
+              \PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{A}\PY{o}{*}\PY{n}{Gamma\PYZus{}te}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}224}]:}
+    
+    \[\vec{E^r_s}(x,z) = \exp(-0.514jx)\cdot\exp(0.115jz)(0.000\hat{a_x}+0.000\hat{a_z}-22.618\hat{a_y})V/m=0V/m\]
+\[\vec{E^r_s}(x,z,t) = \cos(157861198t-0.5139x+0.1149z)(0.0\hat{a_x}+0.0\hat{a_z}-22.618\hat{a_y}) V/m\]
+
+    
+
+    \paragraph{Transmitted}\label{transmitted}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{E\PYZus{}t\PYZus{}0} \PY{o}{=} \PY{n}{A}\PY{o}{*}\PY{n}{tau\PYZus{}tm}
+          
+          \PY{n}{Markdown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}x:.4\PYZcb{}}\PY{l+s+s2}{jx)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cdot}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp(}\PY{l+s+si}{\PYZob{}z:.4\PYZcb{}}\PY{l+s+s2}{jz)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:+.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdl{}\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{vec}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{E\PYZca{}t\PYZus{}s\PYZcb{}\PYZcb{}(x,z,t) = }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(}\PY{l+s+si}{\PYZob{}omega:.0f\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+si}{\PYZob{}x:+.3f\PYZcb{}}\PY{l+s+s2}{x}\PY{l+s+si}{\PYZob{}z:+.3f\PYZcb{}}\PY{l+s+s2}{z)(}\PY{l+s+si}{\PYZob{}a\PYZus{}x:0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}x\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}z:+0.2\PYZcb{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}z\PYZcb{}\PYZcb{}}\PY{l+s+si}{\PYZob{}a\PYZus{}y:+.3f\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{hat}\PY{l+s+s2}{\PYZob{}\PYZob{}}\PY{l+s+s2}{a\PYZus{}y\PYZcb{}\PYZcb{}) V/m\PYZdl{}\PYZdl{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{n}{omega}\PY{o}{=}\PY{n}{omega}\PY{p}{,} 
+              \PY{n}{x}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{B\PYZus{}ground}\PY{o}{*}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{p}{,} 
+              \PY{n}{a\PYZus{}x}\PY{o}{=}\PY{n}{cos}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}t\PYZus{}0}\PY{p}{,} 
+              \PY{n}{a\PYZus{}z}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{sin}\PY{p}{(}\PY{n}{theta\PYZus{}t}\PY{p}{)}\PY{o}{*}\PY{n}{E\PYZus{}t\PYZus{}0}\PY{p}{,}
+              \PY{n}{a\PYZus{}y}\PY{o}{=}\PY{n}{A}\PY{o}{*}\PY{n}{tau\PYZus{}te}
+          \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}226}]:}
+    
+    \[\vec{E^t_s}(x,z) = \exp(-0.514jx)\cdot\exp(-2.298jz)(5.5\hat{a_x}-1.2\hat{a_z}+2.382\hat{a_y}) V/m\]
+\[\vec{E^t_s}(x,z,t) = \cos(157861198t-0.514x-2.298z)(5.5\hat{a_x}-1.2\hat{a_z}+2.382\hat{a_y}) V/m\]
+
+    
+
+    \subsection{Question 02}\label{question-02}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{R\PYZus{}a} \PY{o}{=} \PY{l+m+mi}{215}\PY{o}{/}\PY{l+m+mi}{2}
+          \PY{n}{X\PYZus{}a} \PY{o}{=} \PY{l+m+mi}{251}\PY{o}{/}\PY{l+m+mf}{1.5}
+          \PY{n}{Z\PYZus{}a} \PY{o}{=} \PY{n}{R\PYZus{}a}\PY{o}{+}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{X\PYZus{}a}
+          
+          \PY{n}{Z\PYZus{}0} \PY{o}{=} \PY{l+m+mi}{50}
+          
+          \PY{n}{freq} \PY{o}{=} \PY{l+m+mf}{2.2}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+          
+          \PY{n}{eps\PYZus{}r} \PY{o}{=} \PY{l+m+mf}{4.2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+complex reflection coefficient of the antenna is: (0.7017423611589649+0.31687901523428474j)
+
+    \end{Verbatim}
+
+    \subsubsection{Reflection Coefficient}\label{reflection-coefficient}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{Gamma} \PY{o}{=} \PY{p}{(}\PY{n}{Z\PYZus{}a}\PY{o}{\PYZhy{}}\PY{n}{Z\PYZus{}0}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Z\PYZus{}a}\PY{o}{+}\PY{n}{Z\PYZus{}0}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{complex reflection coefficient of the antenna is: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Gamma}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+complex reflection coefficient of the antenna is: (0.7017423611589649+0.31687901523428474j)
+
+    \end{Verbatim}
+
+    \subsubsection{Stub Matching}\label{stub-matching}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{n}{y\PYZus{}l} \PY{o}{=} \PY{n}{Z\PYZus{}0}\PY{o}{/}\PY{n}{Z\PYZus{}a}
+          
+          \PY{n}{d} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.472}\PY{o}{+}\PY{l+m+mf}{0.188}
+          \PY{n}{l} \PY{o}{=} \PY{l+m+mf}{0.313}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Through line length is :}\PY{l+s+si}{\PYZob{}0:f\PYZcb{}}\PY{l+s+s2}{ meters}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{d}\PY{o}{*}\PY{n}{c}\PY{o}{/}\PY{n}{freq}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open circuit stub length:}\PY{l+s+si}{\PYZob{}0:f\PYZcb{}}\PY{l+s+s2}{ meters}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{l}\PY{o}{*}\PY{n}{c}\PY{o}{/}\PY{n}{freq}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Through line length is :0.029434 meters
+Open circuit stub length:0.008585 meters
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
